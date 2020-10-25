@@ -10,7 +10,7 @@ export default class MainContainer extends React.Component {
     cards: []
   }
 
-  url = "http://localhost:3000/cards";
+  url = "https://qu03qxibli.execute-api.us-east-1.amazonaws.com/Prod/cards";
   options = {
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export default class MainContainer extends React.Component {
 
 
   addNewList = async (cardId, input, url, data, options) => {
-    url = "http://localhost:3000/lists"
+    url = "https://qu03qxibli.execute-api.us-east-1.amazonaws.com/Prod/lists"
     data = {
       description: input,
       card_id: cardId,
@@ -93,7 +93,7 @@ export default class MainContainer extends React.Component {
       newState = true
     }
 
-    url = `http://localhost:3000/lists/${listId}`
+    url = `https://qu03qxibli.execute-api.us-east-1.amazonaws.com/Prod/lists/${listId}`
     data = {
       completed: newState
     };
