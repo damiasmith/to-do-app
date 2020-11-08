@@ -15,7 +15,7 @@ class ToDoCard extends React.Component {
 
   handleListSubmit = (event) => {
     event.preventDefault()
-    this.props.addList(this.props.card.id, this.state.input)
+    this.props.addList(this.props.card.id, this.props.card.Title, this.state.input)
     this.setState({
       input: ''
     })
