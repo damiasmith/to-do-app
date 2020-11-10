@@ -20,20 +20,20 @@ export default class MainContainer extends React.Component {
     }
     try {
       const getCards = await axios.get(url, options)
-      let cards = getCards.data;
+      let cards = JSON.parse(getCards.data.body);
       console.log('cards', cards);
-      if (cards.body === "[]") {
+      if (cards === []) {
         this.setState({
           cardsExist: false
         })
       } else {
         this.setState({
-          cards: cards.body,
+          cards: cards,
           cardsExist: true
         })
       }
     } catch (error) {
-      console.log(error)
+      console.log('componemt', error)
       throw new Error("No cards:", error)
     }
   };
@@ -146,15 +146,11 @@ export default class MainContainer extends React.Component {
     }
   };
 
-  renderCards = async () => {
-
-  }
-
   render() {
     let cardsExist = this.state.cardsExist;
     const renderCards = () => {
-      if(cardsExist){
-        return <ToDoCardContainer cards={this.state.cards} addList={this.addList} handleClickList={this.handleClickList} cardsExist={this.state.cardsExist}/>
+      if (cardsExist){
+        return <ToDoCardContainer cards={this.state.cards} addList={this.addList} cardsExist={this.state.cardsExist} handleClickList={this.handleClickList}/>
       }
     }
     return (

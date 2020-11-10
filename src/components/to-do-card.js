@@ -21,20 +21,22 @@ class ToDoCard extends React.Component {
     })
   }
 
-  renderLists(){
-    return this.props.card.lists.map(list => {
-      return <ToDoList key={list.id} handleClickList={this.props.handleClickList} cardId={this.props.card.id} list={list}/>
-    })
-  }
+  // renderLists(){
+  //   // if (this.props.card.lists) {
+  //     return this.props.card.lists.map(list => {
+  //       return <ToDoList key={list.id} handleClickList={this.props.handleClickList} cardId={this.props.card.id} list={list}/>
+  //     })
+  //   // } else return '';
+  // }
 
   render(){
     return (
       <div className="to-do-card">
-        <h4>{this.props.card.title}</h4>
+        <h4>{this.props.card.Title}</h4>
         <form onSubmit={this.handleListSubmit}>
           <input onChange={this.handleListInput} type="text" value ={this.state.input} />
         </form>
-        {this.renderLists()}
+        {/* {this.renderLists()} */}
       </div>
     )
   }
