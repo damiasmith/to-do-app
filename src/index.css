@@ -30,7 +30,7 @@ code {
 
 .to-do-card input {
   padding: 11px 15px;
-  font-size: 16px;
+  font-size: 12px;
   border-radius: 5px;
   border: 2.5px solid rgba(255,255,255,0.8);
   width: 100%;
@@ -65,12 +65,13 @@ code {
 
 .new-card-form {
   display: flex;
-  margin: 20px;
+  margin: 5rem auto;
   background-color: #0a2c74;
   box-shadow: 0 3px 3px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   transition: all 150ms ease-in-out;
   cursor: pointer;
   height: 100px;
+  width: 150px;
   padding: 35px 40px;
   align-items: center;
   animation: eMLfYp 300ms linear;
@@ -87,6 +88,7 @@ code {
   margin-block-end: 0.33em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
+  font-family: 'Open Sans', 'sans-serif'
 }
 
 .new-card-input {

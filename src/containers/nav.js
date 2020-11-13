@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Nav () {
+const Nav = () =>{
     return(
       <div className="nav">
         <h2>Tasks To Do</h2>

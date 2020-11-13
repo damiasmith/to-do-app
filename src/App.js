@@ -3,7 +3,7 @@ import './App.css';
 import MainContainer from './containers/main-container'
 import Nav from './containers/nav'
 
-function App() {
+const App = () => {
   return (
     <div className="App">
      <Nav />

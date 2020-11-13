@@ -17,26 +17,36 @@ class ToDoCard extends React.Component {
     event.preventDefault()
     this.props.addList(this.props.card.id, this.props.card.Title, this.state.input)
     this.setState({
+      cards: this.props.cards,
       input: ''
     })
   }
 
-  // renderLists(){
-  //   // if (this.props.card.lists) {
-  //     return this.props.card.lists.map(list => {
-  //       return <ToDoList key={list.id} handleClickList={this.props.handleClickList} cardId={this.props.card.id} list={list}/>
-  //     })
-  //   // } else return '';
-  // }
+  renderLists() {
+    if (this.props.card.lists) {
+      return this.props.card.lists.map(list => {
+        return (
+          <ToDoList 
+            key={list.id} 
+            handleClickList={this.props.handleClickList} 
+            cardId={this.props.card.id} 
+            cardTitle={this.props.card.Title}
+            listId={list.list_id}
+            list={list}
+          />
+        )
+      })
+    } 
+  }
 
-  render(){
+  render() {
     return (
       <div className="to-do-card">
-        <h4>{this.props.card.Title}</h4>
+        <h3>{this.props.card.Title}</h3>
         <form onSubmit={this.handleListSubmit}>
-          <input onChange={this.handleListInput} type="text" value ={this.state.input} />
+          <input onChange={this.handleListInput} type="text" value={this.state.input} />
         </form>
-        {/* {this.renderLists()} */}
+        {this.renderLists()}
       </div>
     )
   }

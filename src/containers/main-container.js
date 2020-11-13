@@ -11,7 +11,7 @@ export default class MainContainer extends React.Component {
   }
 
   async componentDidMount () {
-    let url = "https://qu03qxibli.execute-api.us-east-1.amazonaws.com/Prod/cards";
+    let url = "https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/cards";
     let options = {
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export default class MainContainer extends React.Component {
 
   createNewCard = async (input) => {
     if (input === '') throw new Error('No input')
-    let url = "https://qu03qxibli.execute-api.us-east-1.amazonaws.com/Prod/cards";
+    let url = "https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/cards";
     let options = {
       headers: {
         'Content-Type': 'application/json',
@@ -52,19 +52,24 @@ export default class MainContainer extends React.Component {
     };
     try {
       const addCard = await axios.post(url, data, options)
-      const newCard = addCard.data;
+      const newCard = JSON.parse(addCard.data.body);
+      console.log('newCard:', newCard)
+      let newCards = [...this.state.cards, newCard]
+      console.log('newCards:', newCards)
       this.setState({
-        cards: [...this.state.cards, newCard]
+        cards: newCards
       })
+      // console.log('cards:', cards)
+
     } catch (error) {
-      console.log(error)
-      throw new Error("Card not added:", error)
+      console.log("add cards", error)
+      throw new Error("No cards added:", error)
     }
   };
 
 
-  addNewList = async (cardId, cardTitle, input) => {
-    let url = "https://qu03qxibli.execute-api.us-east-1.amazonaws.com/Prod/lists"
+  addList = async (cardId, cardTitle, input) => {
+    let url = "https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/lists"
     let data = {
       title: cardTitle,
       description: input,
@@ -79,9 +84,10 @@ export default class MainContainer extends React.Component {
     }
     try {
       const addList = await axios.post(url, data, options)
-      let newList = addList.data;
+      let newList = JSON.parse(addList.data.body);
       const foundCard = {...this.state.cards.find(card => card.id === cardId)}
-      foundCard.lists = [...foundCard.lists, newList]
+      if (foundCard.lists) foundCard.lists = [...foundCard.lists, newList]
+      else foundCard.lists = [newList]
 
       const newCards = this.state.cards.map(card => {
         if (card.id === cardId){
@@ -96,28 +102,19 @@ export default class MainContainer extends React.Component {
       })
   
     } catch (error) {
-      console.log(error)
-      throw new Error("List not added:", error)
+      console.log("add lists:", error)
+      throw new Error("No lists added:", error)
     }
   };
 
   handleClickList = async (cardId, listId) => {
 
-    const foundCard = {...this.state.cards.find(card => card.id === cardId)}
-    const foundList = foundCard.lists.find(list => list.id === listId)
-
-    let newState = null
-
-    if (foundList.completed) {
-      newState = false
-    } else {
-      newState = true
-    }
-
-    let url = `https://qu03qxibli.execute-api.us-east-1.amazonaws.com/Prod/lists/${listId}`
+    let url = `https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/lists/id`
     let data = {
-      completed: newState
+      id: cardId,
+      list_id: listId
     };
+    console.log("data:", data);
     let options = {
       headers: {
         'Content-Type': 'application/json',
@@ -127,32 +124,40 @@ export default class MainContainer extends React.Component {
 
     try {
       const checkList = await axios.post(url, data, options)
-      const newList = checkList.data;
+      const newCard = JSON.parse(checkList.data.body);
 
       const newCards = this.state.cards.map(card => {
         if (card.id === cardId) {
-          return foundCard
+          return newCard
         } else {
-          return card
+          return card;
         }
       })
-
-      this.setState({
+        this.setState({
         cards: newCards
       })
+
     } catch (error) {
-      console.log(error)
-      throw new Error("List not updted:", error)
+      console.log("update list:", error)
+      throw new Error("No lists updated:", error)
     }
   };
 
   render() {
     let cardsExist = this.state.cardsExist;
     const renderCards = () => {
-      if (cardsExist){
-        return <ToDoCardContainer cards={this.state.cards} addList={this.addList} cardsExist={this.state.cardsExist} handleClickList={this.handleClickList}/>
-      }
-    }
+      if (cardsExist === true){
+        return (
+          <ToDoCardContainer 
+            cards={this.state.cards} 
+            addList={this.addList} 
+            cardsExist={this.state.cardsExist} 
+            handleClickList={this.handleClickList}
+          />
+        )
+      } else return null
+    } 
+
     return (
       <div className="main-container">
         {renderCards()}

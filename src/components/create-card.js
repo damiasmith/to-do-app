@@ -3,13 +3,15 @@ import React from 'react'
 class CreateCard extends React.Component {
 
   state = {
-    input: ''
+    input: '',
+    cards: this.props.cards
   }
 
   handleInput = (event) => {
     event.persist()
     this.setState({
-      input: event.target.value
+      input: event.target.value,
+      cards: this.props.cards
     })
   }
 
@@ -20,11 +22,13 @@ class CreateCard extends React.Component {
 
   render(){
     return (
-      <form onSubmit={this.handleNewCard} className="new-card-form">
-        <h4>Create Card</h4>
-        <input onChange={this.handleInput} className="new-card-input" type="text" value={this.state.input} />
-        <input className="new-card-input" type="submit" value="Create" />
-      </form>
+      <div className="create-new-card">
+        <form onSubmit={this.handleNewCard} className="new-card-form">
+          <h4>New Task List</h4>
+          <input onChange={this.handleInput} className="new-card-input" type="text" value={this.state.input} />
+          <input className="new-card-input" type="submit" value="Create" />
+        </form>
+      </div>
     )
   }
 }
