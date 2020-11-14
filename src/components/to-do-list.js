@@ -1,8 +1,6 @@
 import React from 'react'
 
 const ToDoList = (props) => {
-  console.log(props);
-
   const handleClick = (event) => {
     event.preventDefault()
     props.handleClickList(props.cardId, props.listId)

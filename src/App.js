@@ -6,10 +6,10 @@ import Nav from './containers/nav'
 const App = () => {
   return (
     <div className="App">
-     <Nav />
-     <MainContainer />
+      <Nav />
+      <MainContainer />
     </div>
-  );
+  )
 }
 
 export default App;
