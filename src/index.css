@@ -47,7 +47,7 @@ body {
   border-radius: 4.5px;
   animation: eMLfYp 300ms linear;
   justify-content: space-around;
-  background: rgb(241,241,241)
+  background-color: rgb(241,241,241)
 }
 
 .completed-list {
@@ -60,7 +60,6 @@ body {
   border-radius: 4.5px;
   animation: eMLfYp 300ms linear;
   justify-content: space-around;
-  background: rgb(241,241,241)
 }
 
 .new-card-form {

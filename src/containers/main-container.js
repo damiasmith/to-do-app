@@ -20,7 +20,6 @@ export default class MainContainer extends React.Component {
 
     try {
       const getCards = await axios.get(url, options)
-      console.log('getCards', JSON.stringify(getCards))
       const cards = JSON.parse(getCards.data.body)
       console.log('cards', cards)
 
