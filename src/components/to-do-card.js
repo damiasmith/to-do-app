@@ -42,6 +42,7 @@ class ToDoCard extends React.Component {
             cardTitle={this.props.card.Title}
             listId={list.list_id}
             list={list}
+            deleteList={this.props.deleteList}
           />
         )
       })

@@ -7,7 +7,7 @@ const ToDoList = (props) => {
   }
   const handleDelete = (event) => {
     event.preventDefault()
-    props.deleteList(props.listId)
+    props.deleteList(props.cardId, props.listId)
   }
 
   return (
@@ -15,7 +15,7 @@ const ToDoList = (props) => {
         <h4 className={props.list.completed ? "completed-list" : "to-do-list"}>
           <span class="to-do-list-title"> {props.list.description}{props.list.completed ? "  ✔️" : null} </span>
           <span class="delete-list-container">
-            <button onClick={handleDelete}class="delete-list">
+            <button onClick={handleDelete} class="delete-list">
               x
             </button>
           </span>

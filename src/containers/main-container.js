@@ -140,7 +140,6 @@ export default class MainContainer extends React.Component {
   }
 
   deleteCard = async (cardId) => {
-    console.log(cardId)
     const url = 'https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/cards'
 
     const options = {
@@ -171,7 +170,7 @@ export default class MainContainer extends React.Component {
     }
   }
 
-  deleteList = async (listId) => {
+  deleteList = async (cardId, listId) => {
     console.log(listId)
     const url = 'https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/lists'
 
@@ -181,20 +180,23 @@ export default class MainContainer extends React.Component {
         Accept: 'application/json'
       },
       data: {
-        id: listId,
+        id: cardId,
+        list_id: listId,
       }
     }
 
     try {
-      const deleteList = await axios.delete(url, options)
-      const deletedList = JSON.parse(deleteList.data.body)
+      const response = await axios.delete(url, options)
+      const deletedList = JSON.parse(response.data.body)
+      console.log(deletedList)
       const cards = this.state.cards
+      console.log(cards)
       
-      const index = deletedList.lists.findIndex(list => list.id === listId);
-      const newLists = [...deletedList.lists.slice(0, index), ...deletedList.lists.slice(index + 1)]
-      const newCards = [...cards, newLists]
+      const index = cards.findIndex(card => card.id === cardId)
+      cards[index] = deletedList
+      
       this.setState({
-        cards: newCards
+        cards: cards
       })
   
     } catch (error) {
@@ -214,6 +216,7 @@ export default class MainContainer extends React.Component {
             cardsExist={this.state.cardsExist} 
             handleClickList={this.handleClickList}
             deleteCard={this.deleteCard}
+            deleteList={this.deleteList}
           />
         )
       } else return null

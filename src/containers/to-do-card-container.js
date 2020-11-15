@@ -1,7 +1,7 @@
 import React from 'react'
 import ToDoCard from '../components/to-do-card'
 
-const ToDoCardContainer = (props) =>{
+const ToDoCardContainer = (props) => {
   const renderCards = () => {
     if (props.cardsExist) {
       return props.cards.map(card => {
