@@ -67,6 +67,7 @@ export default class MainContainer extends React.Component {
 
 
   addList = async (cardId, cardTitle, input) => {
+    if (input === '') throw new Error('No input');
     const url = 'https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/lists'
     const data = {
       title: cardTitle,
@@ -138,6 +139,70 @@ export default class MainContainer extends React.Component {
     }
   }
 
+  deleteCard = async (cardId) => {
+    console.log(cardId)
+    const url = 'https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/cards'
+
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      data: {
+        id: cardId,
+      }
+    }
+
+    try {
+      const deleteCard = await axios.delete(url, options)
+      const deletedCard = JSON.parse(deleteCard.data.body)
+      const cards = this.state.cards
+
+      const index = cards.findIndex(card => card.id === cardId);
+      const newCards = [...cards.slice(0, index), ...cards.slice(index + 1)]
+
+      this.setState({
+        cards: newCards
+      })
+  
+    } catch (error) {
+      console.log('delete:', error)
+      throw new Error('No cards deleted:', error)
+    }
+  }
+
+  deleteList = async (listId) => {
+    console.log(listId)
+    const url = 'https://irxlr7j4t2.execute-api.us-east-1.amazonaws.com/dev/lists'
+
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      data: {
+        id: listId,
+      }
+    }
+
+    try {
+      const deleteList = await axios.delete(url, options)
+      const deletedList = JSON.parse(deleteList.data.body)
+      const cards = this.state.cards
+      
+      const index = deletedList.lists.findIndex(list => list.id === listId);
+      const newLists = [...deletedList.lists.slice(0, index), ...deletedList.lists.slice(index + 1)]
+      const newCards = [...cards, newLists]
+      this.setState({
+        cards: newCards
+      })
+  
+    } catch (error) {
+      console.log('delete:', error)
+      throw new Error('No cards deleted:', error)
+    }
+  }
+
   render() {
     const cardsExist = this.state.cardsExist;
     const renderCards = () => {
@@ -148,6 +213,7 @@ export default class MainContainer extends React.Component {
             addList={this.addList} 
             cardsExist={this.state.cardsExist} 
             handleClickList={this.handleClickList}
+            deleteCard={this.deleteCard}
           />
         )
       } else return null

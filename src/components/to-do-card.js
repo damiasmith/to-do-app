@@ -22,6 +22,15 @@ class ToDoCard extends React.Component {
     })
   }
 
+  handleDelete = (event) => {
+    event.preventDefault()
+    this.props.deleteCard(this.props.card.id)
+    console.log(this.props.card.id)
+    this.setState({
+      cards: this.props.cards,
+    })
+  }
+
   renderLists() {
     if (this.props.card.lists) {
       return this.props.card.lists.map(list => {
@@ -47,6 +56,11 @@ class ToDoCard extends React.Component {
           <input onChange={this.handleListInput} type="text" value={this.state.input} />
         </form>
         {this.renderLists()}
+        <div class="delete-container">
+          <button onClick={this.handleDelete} class="delete-button">
+            x
+          </button>
+        </div>
       </div>
     )
   }

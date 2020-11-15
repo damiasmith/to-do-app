@@ -10,6 +10,8 @@ const ToDoCardContainer = (props) =>{
           key={card.id} 
           handleClickList={props.handleClickList} 
           addList={props.addList} 
+          deleteCard={props.deleteCard}
+          deleteList={props.deleteList}
           card={card}
           />
         )      
