@@ -11,9 +11,9 @@ const ToDoList = (props) => {
   }
 
   return (
-    <div onClick={handleClick} className="to-do-list-container">
+    <div className="to-do-list-container">
         <h4 className={props.list.completed ? "completed-list" : "to-do-list"}>
-          <span class="to-do-list-title"> {props.list.description}{props.list.completed ? "  ✔️" : null} </span>
+          <span onClick={handleClick} class="to-do-list-title"> {props.list.description}{props.list.completed ? "  ✔️" : null} </span>
           <span class="delete-list-container">
             <button onClick={handleDelete} class="delete-list">
               x
