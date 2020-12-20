@@ -12,11 +12,6 @@ body {
     monospace;
 } */
 
-.main-container {
-  display: flex;
-  padding: 45px 86px 15px;
-}
-
 .to-do-card {
   display: inline-block;
   vertical-align: top;
@@ -153,4 +148,9 @@ body {
 .new-card-input {
   display: block;
   padding: 1%;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
